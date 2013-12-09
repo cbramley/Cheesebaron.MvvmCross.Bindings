@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BindableViewPager.cs" />
+    <Compile Include="ChildInflatedEventArgs.cs" />
     <Compile Include="MvxBindablePagerAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

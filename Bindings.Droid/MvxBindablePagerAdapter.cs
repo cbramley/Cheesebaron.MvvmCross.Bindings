@@ -40,6 +40,8 @@ namespace Cheesebaron.MvvmCross.Bindings.Droid
         private IEnumerable _itemsSource;
         private IDisposable _subscription;
 
+        public event EventHandler<ChildInflatedEventArgs> OnChildInflated;
+
         public MvxBindablePagerAdapter(Context context)
             : this(context, MvxAndroidBindingContextHelpers.Current())
         {
@@ -197,10 +199,16 @@ namespace Cheesebaron.MvvmCross.Bindings.Droid
                 if (viewToUse.TemplateId != templateId)
                     viewToUse = null;
 
-            if (viewToUse == null)
-                viewToUse = CreateBindableView(source, templateId);
+            if ( viewToUse == null )
+            {
+                viewToUse = CreateBindableView( source, templateId );
+                if ( null != OnChildInflated )
+                    OnChildInflated( this, new ChildInflatedEventArgs( viewToUse as View, source ) );
+            }
             else
-                BindBindableView(source, viewToUse);
+            {
+                BindBindableView( source, viewToUse );
+            }
 
             return viewToUse as View;
         }
